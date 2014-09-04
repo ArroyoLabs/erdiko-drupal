@@ -1,6 +1,6 @@
 <?php
 /**
- * Drupal model
+ * Drupal Model
  * Base model every drupal model should inherit
  * 
  * @category  	erdiko

@@ -1,7 +1,7 @@
 <?php
 /**
  * Drupal bootstrap
- * Assumes Drupal is installed in the vendor folder in the drupal-7.x folder.
+ * Assumes Drupal is installed in the vendor folder in the /lib/drupal folder.
  * 
  * @category  	erdiko
  * @package   	drupal
@@ -19,7 +19,7 @@ if (array_key_exists('REQUEST_METHOD', $_SERVER))
 */
 
 // Set the working directory and required Drupal 7 server variables
-define('DRUPAL_ROOT', VENDOR.'/drupal-7.x');
+define('DRUPAL_ROOT', ROOT.'/lib/drupal');
 chdir(DRUPAL_ROOT);
 
 $_SERVER['REQUEST_METHOD'] = 'get'; // @todo do a check for method first

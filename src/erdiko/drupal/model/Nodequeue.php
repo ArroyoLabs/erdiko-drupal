@@ -8,7 +8,6 @@
  * @author		John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\drupal\model;
-require_once __DIR__."/bootstrap.php";
 
 use \Erdiko;
 

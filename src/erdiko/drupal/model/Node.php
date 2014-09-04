@@ -1,7 +1,6 @@
 <?php
 /**
- * Drupal model
- * Base model every drupal model should inherit
+ * Drupal Node
  * 
  * @category  	erdiko
  * @package   	drupal
@@ -9,7 +8,6 @@
  * @author		John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\drupal\model;
-require_once __DIR__."/bootstrap.php";
 
 use \Erdiko;
 
