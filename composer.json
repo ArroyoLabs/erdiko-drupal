@@ -1,0 +1,37 @@
+{
+	"name":"erdiko/drupal",
+    "description": "Erdiko Drupal package",
+    "keywords": ["erdiko", "erdiko-drupal", "erdiko package"],
+    "homepage": "http://erdiko.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arroyo Labs",
+            "email": "info@arroyolabs.com"
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor",
+        "minimum-stability": "dev"
+    },
+     "autoload": {
+        "psr-0": { "erdiko\\drupal": "src/" }
+    },
+	"repositories": [
+		{
+	        "type": "package",
+	        "package": {
+	            "name": "drupal",
+	            "version": "7.31",
+	            "source": {
+	                "url": "git://github.com:drupal/drupal.git",
+	                "type": "git",
+	                "reference": "7.31"
+	            }
+	        }
+	    }
+	],
+	"require": {
+	    "drupal": "7.31"
+	}
+}
