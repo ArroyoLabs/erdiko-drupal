@@ -16,22 +16,5 @@
     },
      "autoload": {
         "psr-0": { "erdiko\\drupal": "src/" }
-    },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "drupal",
-                "version": "7.31",
-                "source": {
-                    "url": "git://github.com:drupal/drupal.git",
-                    "type": "git",
-                    "reference": "7.31"
-                }
-            }
-        }
-    ],
-    "require": {
-        "drupal": "7.31"
     }
 }
