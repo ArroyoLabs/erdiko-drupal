@@ -33,8 +33,46 @@ class User extends \erdiko\core\Controller
 		// error_log("var: $var");
 		if(!empty($var))
 		{
+			if(is_numeric($var))
+				return $this->getUserProfile($var);
 			// load action based off of naming conventions
 			return $this->_autoaction($var, 'get');
+
+		} else {
+			return $this->getIndex();
+		}
+	}
+
+	/**
+	 * Get User Profile
+	 *
+	 * @param mixed $var
+	 * @return mixed
+	 */
+	public function getUserProfile($var)
+	{
+		$user = new \erdiko\drupal\models\User;
+		// user_load(uid) returns the complete array
+		$profile = $user->user_load($var);
+		$content = \drupal_render($user->user_view($profile));
+		$content .= "<pre>".print_r($profile, true)."</pre>";
+
+		$this->setContent( $content );
+	}
+
+	/**
+	 * Post
+	 *
+	 * @param mixed $var
+	 * @return mixed
+	 */
+	public function post($var = null)
+	{
+		// error_log("var: $var");
+		if(!empty($var))
+		{
+			// load action based off of naming conventions
+			return $this->_autoaction($var, 'post');
 
 		} else {
 			return $this->getIndex();
@@ -52,10 +90,43 @@ class User extends \erdiko\core\Controller
 	}
 
 	/**
-	 * Drupal login example
+	 * Drupal get login example
 	 */
 	public function getLogin()
 	{
 		// @todo http://stackoverflow.com/questions/11995551/drupal-render-login-form-programatically
+		
+		$drupal = new \erdiko\drupal\Model;
+
+		$elements = $drupal->drupal_get_form("user_login"); 
+		$form = \drupal_render($elements);
+
+		$this->setContent( $form );
+
 	}
+
+	/**
+	 * Drupal get login example
+	 */
+	public function postLogin()
+	{
+		$drupal = new \erdiko\drupal\Model;
+
+		$elements = $drupal->drupal_get_form("user_login"); 
+		$form = \drupal_render($elements);
+
+		$this->setContent( $form );
+	}
+
+	/**
+	 * Drupal logout example
+	 */
+	public function getLogout()
+	{
+		$drupal = new \erdiko\drupal\models\User;
+		$drupal->logout();
+	}
+
 }
+
+
