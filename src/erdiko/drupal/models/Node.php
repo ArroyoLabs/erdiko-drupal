@@ -7,7 +7,7 @@
  * @copyright 	Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
  * @author		John Arroyo, john@arroyolabs.com
  */
-namespace erdiko\drupal\model;
+namespace erdiko\drupal\models;
 
 use \Erdiko;
 
@@ -46,8 +46,8 @@ class Node extends \erdiko\drupal\Model
 	{
 	    $path = 'node/'.$nid;
 	    // Check for an alias using drupal_lookup_path()
-	    if((drupal_lookup_path('alias', $path)!==false))
-	        $alias = drupal_lookup_path('alias', $path);
+	    if((\drupal_lookup_path('alias', $path)!==false))
+	        $alias = \drupal_lookup_path('alias', $path);
 
 	    return $alias;
 	}
