@@ -7,7 +7,7 @@
  * @copyright 	Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
  * @author		John Arroyo, john@arroyolabs.com
  */
-namespace erdiko\drupal\model;
+namespace erdiko\drupal\models;
 
 use \Erdiko;
 
@@ -37,16 +37,5 @@ class Nodequeue extends \erdiko\drupal\Model
 		}
 		
 		return $nodes;
-	}	
-	
-	/**
-	 * 
-	 */
-	public function getArrayFromNodeQueue($data)
-	{
-		// get the pertinent info from the NodeQueue object
-		$formated = $data;
-		
-		return $formated;
 	}
 }
