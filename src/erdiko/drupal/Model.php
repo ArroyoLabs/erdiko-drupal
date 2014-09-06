@@ -21,7 +21,6 @@ class Model extends \erdiko\core\ModelAbstract
 	 */
 	public function __call ( $drupalFunction, $arguments = array() )
 	{
-		$drupalFunction += "\\";
 		return call_user_func_array($drupalFunction, $arguments);
 	}
 }
