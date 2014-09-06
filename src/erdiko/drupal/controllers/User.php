@@ -52,8 +52,8 @@ class User extends \erdiko\core\Controller
 	public function getUserProfile($var)
 	{
 		$user = new \erdiko\drupal\models\User;
-		// user_load(uid) returns the complete array
-		$profile = $user->user_load($var);
+
+		$profile = $user->user_load($var); // user_load(uid) returns the complete array
 		$content = \drupal_render($user->user_view($profile));
 		$content .= "<pre>".print_r($profile, true)."</pre>";
 
@@ -101,7 +101,7 @@ class User extends \erdiko\core\Controller
 		$elements = $drupal->drupal_get_form("user_login"); 
 		$form = \drupal_render($elements);
 
-		$this->setContent( $form );
+		$this->setContent($form);
 
 	}
 
@@ -115,8 +115,95 @@ class User extends \erdiko\core\Controller
 		$elements = $drupal->drupal_get_form("user_login"); 
 		$form = \drupal_render($elements);
 
-		$this->setContent( $form );
+		$this->setContent($form);
 	}
+
+	/**
+	 * Drupal get Register example
+	 */
+	public function getRegister()
+	{
+		$user = new \erdiko\drupal\models\User;
+		
+		//Create user Programmatically
+		/*
+		$form = array(
+		    "name" => "testUser4",
+		    "password" => "testtest",
+		    "email" => "test@test.com",
+		    "password" => "testtest",
+		);
+
+		$content = $user->createUser($form);
+		$content .= "<pre>".print_r($elements, true)."</pre>";
+		*/
+		
+		//Using Form
+		$elements = $user->drupal_get_form("user_register_form"); 
+		$form = \drupal_render($elements);
+
+		$this->setContent($form);
+	}
+
+	public function postRegister()
+	{
+		$user = new \erdiko\drupal\models\User;
+
+		if(\user_load_by_name($_POST['name']))
+		{
+			echo ("User exists!!");
+		}
+		else
+		{
+			$account = user_save('', $_POST);
+		}
+
+		$content .= "<pre>".print_r($_POST, true)."</pre>";
+
+		$this->setContent($content);
+	}
+
+	/**
+	 * Drupal delete users example
+	 *
+	 * This function is commented out because it is too dangerous
+	 */
+	/*
+	public function getDeleteUser()
+	{
+		$user = new \erdiko\drupal\models\User;
+
+		$nid = '3';
+		\user_delete($nid);
+
+		$this->setContent($content);
+	}
+	*/
+
+	/**
+	 * Drupal get all users example
+	 */
+	public function getAllUser()
+	{
+		$user = new \erdiko\drupal\models\User;
+
+		$content = $user->getAllUsers();
+
+		$this->setContent($content);
+	}
+
+	/**
+	 * Drupal get all users example
+	 */
+	public function postAllUser()
+	{
+		//$user = new \erdiko\drupal\models\User;
+
+		//$content = $user->getAllUsers();
+
+		$this->setContent("Hello");
+	}
+
 
 	/**
 	 * Drupal logout example
