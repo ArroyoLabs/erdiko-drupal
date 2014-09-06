@@ -52,7 +52,6 @@ class User extends \erdiko\core\Controller
 	public function getUserProfile($var)
 	{
 		$user = new \erdiko\drupal\models\User;
-
 		$profile = $user->user_load($var); // user_load(uid) returns the complete array
 		$content = \drupal_render($user->user_view($profile));
 		$content .= "<pre>".print_r($profile, true)."</pre>";
@@ -187,7 +186,16 @@ class User extends \erdiko\core\Controller
 	{
 		$user = new \erdiko\drupal\models\User;
 
-		$content = $user->getAllUsers();
+		//$content = $user->getAllUsers();
+
+		//@todo update getAllUsers function in User.php
+		$query = \db_select('users', 'u');
+	    $query->fields('u', array('name'));
+	    $result = $query->execute();
+
+	    while($record = $result->fetchAssoc()) {
+	         print_r($record['name']);
+	    }
 
 		$this->setContent($content);
 	}
@@ -201,7 +209,7 @@ class User extends \erdiko\core\Controller
 
 		//$content = $user->getAllUsers();
 
-		$this->setContent("Hello");
+		$this->setContent($_POST);
 	}
 
 
