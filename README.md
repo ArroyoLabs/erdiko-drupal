@@ -17,12 +17,17 @@ Installation
 
 * install drupal.  Use the drupal wizzard e.g. local.drupal.erdiko.org/install.php or update settings.php file with your database credentials
 
-Now that drupal is set up, time to get the erdiko-drupal package.  To do this simply run this on the commandline
+* Now that drupal is set up, time to get the erdiko-drupal package.  To do this simply run this on the commandline
 
 	composer require erdiko/drupal 7.0.*
 
 an alternative is to add drupal to your require list in your composer.json file and run, "composer update".
 
+* symlink your files folder.  This will make sure that any files uploaded in drupal will be available in your erdiko site.  Go to the root of your site and run the follow commands (linux & OSX).
+
+	mkdir -p public/sites/default
+	cd public/sites/default
+	ln -s ../../../lib/drupal/sites/default/files files
 
 Attach erdiko to an existing Drupal installation
 ------------------------------------------------
