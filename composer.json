@@ -1,5 +1,5 @@
 {
-	"name":"erdiko/drupal",
+    "name":"erdiko/drupal",
     "description": "Erdiko Drupal package",
     "keywords": ["erdiko", "erdiko-drupal", "erdiko package"],
     "homepage": "http://erdiko.org",
@@ -16,22 +16,5 @@
     },
      "autoload": {
         "psr-0": { "erdiko\\drupal": "src/" }
-    },
-	"repositories": [
-		{
-	        "type": "package",
-	        "package": {
-	            "name": "drupal",
-	            "version": "7.31",
-	            "source": {
-	                "url": "git://github.com:drupal/drupal.git",
-	                "type": "git",
-	                "reference": "7.31"
-	            }
-	        }
-	    }
-	],
-	"require": {
-	    "drupal": "7.31"
-	}
+    }
 }
