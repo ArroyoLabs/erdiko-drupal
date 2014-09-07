@@ -29,8 +29,8 @@ an alternative is to add drupal to your require list in your composer.json file 
 	cd public/sites/default
 	ln -s ../../../lib/drupal/sites/default/files files
 
-Attach erdiko to an existing Drupal installation
-------------------------------------------------
+Attach an existing Drupal site to your erdiko app
+-------------------------------------------------
 
 copy your drupal code into /lib/drupal or add a symlink from your drupal codebase that links to /lib/drupal
 
