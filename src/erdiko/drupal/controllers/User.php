@@ -52,10 +52,12 @@ class User extends \erdiko\core\Controller
 	public function getUserProfile($var)
 	{
 		$user = new \erdiko\drupal\models\User;
-		$profile = $user->user_load($var); // user_load(uid) returns the complete array
-		$content = \drupal_render($user->user_view($profile));
-		$content .= "<pre>".print_r($profile, true)."</pre>";
+		$drupalUser = $user->user_load($var); // user_load(uid) returns the complete array
+		$content = $user->renderProfile($drupalUser);
 
+		$content .= "<pre>".print_r($drupalUser, true)."</pre>"; // this is the raw drupal user data
+
+		$this->setTitle($drupalUser->name);
 		$this->setContent( $content );
 	}
 
@@ -84,8 +86,10 @@ class User extends \erdiko\core\Controller
 	public function getIndex()
 	{	
 		// Add page data
-		$this->setTitle('Examples');
-		$this->addView('examples/index');
+		$this->setTitle('User Examples');
+		// $this->addView('examples/index');
+		$content = $this->getView('user_index', null, dirname(__DIR__));
+		$this->setContent($content);
 	}
 
 	/**
@@ -93,15 +97,25 @@ class User extends \erdiko\core\Controller
 	 */
 	public function getLogin()
 	{
-		// @todo http://stackoverflow.com/questions/11995551/drupal-render-login-form-programatically
-		
 		$drupal = new \erdiko\drupal\Model;
 
 		$elements = $drupal->drupal_get_form("user_login"); 
 		$form = \drupal_render($elements);
 
 		$this->setContent($form);
+	}
 
+	/**
+	 * Drupal get login2 example (bootstrap form)
+	 */
+	public function getLogin2()
+	{
+		$drupal = new \erdiko\drupal\Model;
+		$elements = $drupal->drupal_get_form("user_login");
+		$content = $this->getView('login', array('build_id' => $elements['#build_id']), dirname(__DIR__));
+
+		$this->setContent($content);
+		// $this->setContent( "<pre>".print_r($elements, true)."<pre>");
 	}
 
 	/**
@@ -182,36 +196,25 @@ class User extends \erdiko\core\Controller
 	/**
 	 * Drupal get all users example
 	 */
-	public function getAllUser()
+	public function getAll()
 	{
 		$user = new \erdiko\drupal\models\User;
+		$content = "";
 
-		//$content = $user->getAllUsers();
+		// $content = $user->getAllUsers();
 
-		//@todo update getAllUsers function in User.php
+		// @todo update getAllUsers function in User.php
 		$query = \db_select('users', 'u');
-	    $query->fields('u', array('name'));
+	    $query->fields('u', array('name', 'uid'));
 	    $result = $query->execute();
 
 	    while($record = $result->fetchAssoc()) {
-	         print_r($record['name']);
+	         $content .= "<p><a href=\"/user/{$record['uid']}\">{$record['name']}</a></p>";
 	    }
 
+	    $this->setTitle('All Users');
 		$this->setContent($content);
 	}
-
-	/**
-	 * Drupal get all users example
-	 */
-	public function postAllUser()
-	{
-		//$user = new \erdiko\drupal\models\User;
-
-		//$content = $user->getAllUsers();
-
-		$this->setContent($_POST);
-	}
-
 
 	/**
 	 * Drupal logout example
@@ -220,6 +223,8 @@ class User extends \erdiko\core\Controller
 	{
 		$drupal = new \erdiko\drupal\models\User;
 		$drupal->logout();
+
+		$this->setContent("You have been logged out.");
 	}
 
 }

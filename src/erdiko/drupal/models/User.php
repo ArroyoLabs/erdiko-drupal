@@ -45,6 +45,14 @@ class User extends \erdiko\drupal\Model
 
 		return $userId;
 	}
+
+	/**
+	 * Render user profile via drupal's theming engine
+	 */
+	public function renderProfile($user)
+	{
+		return \drupal_render(\user_view($user));
+	}
 	
 	protected function getUserErrorMessage($errorMessage)
 	{
