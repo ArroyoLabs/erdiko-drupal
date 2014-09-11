@@ -125,10 +125,35 @@ class User extends \erdiko\core\Controller
 	{
 		$drupal = new \erdiko\drupal\Model;
 
-		$elements = $drupal->drupal_get_form("user_login"); 
-		$form = \drupal_render($elements);
+		/*
+		if(\user_load_by_name($_POST['name']) == FALSE)
+		{
+			if(\user_load_by_mail($_POST['name']) == FALSE)
+			{
+				$content = \form_set_error('name', t('This username does not exist'));
+				$content = $content.'This username does not exist';
+			}
+		}
+		*/
 
-		$this->setContent($form);
+		if(strpos($_POST['name'], '@') === FALSE )
+		{
+			$user = \user_load_by_name($_POST['name']);
+
+			if($user)
+			{
+				$success = \user_authenticate($_POST['name'], $_POST['pass']);
+
+				if($success)
+				{
+					$this->setContent('Login successful. Welcome '. $_POST['name']);
+				}
+				else $this->setContent('Incorrect password.');
+			}
+			else $this->setContent('User does not exist.');
+		}
+		else $this->setContent('Please enter your user name, not email.');
+
 	}
 
 	/**
@@ -170,6 +195,14 @@ class User extends \erdiko\core\Controller
 		{
 			$account = user_save('', $_POST);
 		}
+
+		 // Fill form_state.
+		  $form_state['values']['name'] = $_POST['name'];
+		  $form_state['values']['op'] = 'E-mail new password';
+		 
+		  // Execute the register form.
+		  \drupal_form_submit('user_pass', $form_state);
+
 
 		$content .= "<pre>".print_r($_POST, true)."</pre>";
 
