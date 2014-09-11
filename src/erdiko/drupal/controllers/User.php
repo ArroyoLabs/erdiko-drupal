@@ -146,13 +146,21 @@ class User extends \erdiko\core\Controller
 
 				if($success)
 				{
-					$this->setContent('Login successful. Welcome '. $_POST['name']);
+					$content = 'Login successful. Welcome '. $_POST['name'];
 				}
-				else $this->setContent('Incorrect password.');
+				else $content = 'Incorrect password.';
 			}
-			else $this->setContent('User does not exist.');
+			else $content = 'User does not exist.';
 		}
-		else $this->setContent('Please enter your user name, not email.');
+		else $content = 'Please enter your user name, not email.';
+
+		if(strpos($content, 'Login successful') === FALSE)
+		{
+			$elements = $drupal->drupal_get_form("user_login"); 
+			$form = \drupal_render($elements);
+			$this->setContent($content.' '.$form);
+		}
+		else $this->setContent($content);
 
 	}
 
