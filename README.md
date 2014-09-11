@@ -6,7 +6,7 @@ Erdiko Drupal integration
 Version (SemVer)
 ----------------
 
-7.0.3
+7.0.4
 
 Installation
 ------------
