@@ -19,7 +19,7 @@ if (array_key_exists('REQUEST_METHOD', $_SERVER))
 */
 
 // Set the working directory and required Drupal 7 server variables
-define('DRUPAL_ROOT', ROOT.'/lib/drupal');
+define('DRUPAL_ROOT', dirname(dirname(dirname(dirname(dirname(dirname(__DIR__)))))).'/lib/drupal');
 chdir(DRUPAL_ROOT);
 
 $_SERVER['REQUEST_METHOD'] = 'get'; // @todo do a check for method first

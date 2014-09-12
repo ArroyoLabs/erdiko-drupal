@@ -13,7 +13,7 @@ require_once __DIR__."/bootstrap.php";
 
 use \Erdiko;
 
-class Model extends \erdiko\core\ModelAbstract
+class Model 
 {	
 	/** 
 	 * Generic function call.  Allows you call any drupal api function from the object.
