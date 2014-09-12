@@ -33,6 +33,7 @@ class Password extends \erdiko\core\Controller
 		// error_log("var: $var");
 		if(!empty($var))
 		{
+			var_dump($var);
 			// load action based off of naming conventions
 			return $this->_autoaction($var, 'get');
 
@@ -40,6 +41,47 @@ class Password extends \erdiko\core\Controller
 			return $this->getIndex();
 		}
 	}
+
+	/** 
+	 * Test url variable routing 
+	 */
+	public function getReset($var1 = null, $var2 = null, $var3 = null)
+	{
+		$var = [$var1, $var2, $var3];
+		//$content = "<pre>".print_r($var, true)."</pre>";
+		
+		$drupal = new \erdiko\drupal\models\User;
+		\module_load_include('inc', 'user', 'user.pages');
+		
+		//global $user;
+		$account = \user_load($var1);
+  		$output = \drupal_render(\drupal_get_form('user_profile_form', $account));
+		
+		$this->setContent($output);
+		
+	}
+
+
+	public function postReset()
+	{
+		$drupal = new \erdiko\drupal\models\User;
+
+		$account = \user_load_by_mail($_POST['mail']);
+		$edit = array();
+
+		if($_POST['pass']['pass1'] == $_POST['pass']['pass2'])
+		{
+			$edit['pass'] = $_POST['pass']['pass1'];
+			\user_save($account, $edit);
+			$this->setContent('Your password was successfully changed.');
+		}
+		else
+		{
+			$this->setContent('The password and confirmation password do not match.');
+		}
+		
+	}
+
 
 
 	/**
@@ -74,7 +116,7 @@ class Password extends \erdiko\core\Controller
 	/**
 	 * Drupal get login example
 	 */
-	public function getReset()
+	public function getPasswordReset()
 	{
 	
 		$drupal = new \erdiko\drupal\Model;
@@ -90,7 +132,7 @@ class Password extends \erdiko\core\Controller
 	/**
 	 * Drupal get login example
 	 */
-	public function postReset()
+	public function postPasswordReset()
 	{
 		//var_dump($_POST);
 		$drupal = new \erdiko\drupal\Model;
