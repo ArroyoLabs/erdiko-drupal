@@ -33,7 +33,6 @@ class Password extends \erdiko\core\Controller
 		// error_log("var: $var");
 		if(!empty($var))
 		{
-			var_dump($var);
 			// load action based off of naming conventions
 			return $this->_autoaction($var, 'get');
 
