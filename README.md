@@ -3,6 +3,13 @@ erdiko-drupal
 
 Erdiko Drupal integration
 
+Run a headless version of drupal in your MVC app!  
+
+Using this package is an easy way to run Drupal in another codebase (framework).  It essentially is a convenient way to bootstrap drupal and give you access to it's API.  Drupal becomes another data source.  Call the drupal model or extend the drupal model and make your own headless Drupal mashup.  Only requests that intiate the drupal model will load up Drupal.  This can be great for performance.
+
+	$drupal = new \erdiko\drupal\Model; // Instantiate Drupal
+	$node = $drupal->node_load(1); // Load some drupal content and theme or process it how ever you like
+
 Version (SemVer)
 ----------------
 
@@ -23,7 +30,7 @@ Installation
 
 	composer require erdiko/drupal 7.0.*
 
-an alternative is to add drupal to your require list in your composer.json file and run, "composer update".
+	* an alternative is to add erdiko/drupal to your require list in your project's composer.json file and run, "composer update".
 
 * symlink your files folder.  This will make sure that any files uploaded in drupal will be available in your erdiko site.  Go to the root of your site and run the follow commands (linux & OSX).
 
@@ -36,7 +43,7 @@ an alternative is to add drupal to your require list in your composer.json file 
 Attach an existing Drupal site to your erdiko app
 -------------------------------------------------
 
-copy your drupal code into /lib/drupal or add a symlink from your drupal codebase that links to /lib/drupal
+copy your drupal code into /lib/drupal or add a symlink from your drupal codebase that links to /lib/drupal.  The instructions are essentially the same as above except that you do not need to go through the drupal install process.
 
 another option is to hack the drupal module itself and point the bootstrap.php to your drupal root.  This is a less desireable approach.  We are considering adding the path to a config file for easy directory swapping.
 
@@ -48,12 +55,16 @@ This erdiko/drupal package not just work with the Erdiko micro framework, it wil
 Demo
 ----
 
+The demo below is for the [Erdiko micro framework](http://erdiko.org/) but you can still borrow some code to use in your MVC of choice (e.g. Laravel or Symfony).
+
 To add some sample demos to see erdiko/drupal in action simply add these routes to your app.  Edit /app/config/application/routes.json and enter the routes below.  The demos will show up as yoursite.com/drupal and yoursite.com/user
 
 	"drupal": "\erdiko\drupal\controllers\Example",
 	"drupal/:alpha": "\erdiko\drupal\controllers\Example",
 	"user": "\erdiko\drupal\controllers\User",
 	"user/:alpha": "\erdiko\drupal\controllers\User"
+
+Take a look at the Example Controllers for ideas of how to leverage Drupal in your project.  There are so many to leverage the Drupal CMS in an MVC web app or web service.
 
 FAQ
 ---
