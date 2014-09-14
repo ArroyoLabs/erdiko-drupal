@@ -30,7 +30,7 @@ Installation
 
 	composer require erdiko/drupal 7.0.*
 
-	* an alternative is to add erdiko/drupal to your require list in your project's composer.json file and run, "composer update".
+* an alternative is to add erdiko/drupal to your require list in your project's composer.json file and run, "composer update".
 
 * symlink your files folder.  This will make sure that any files uploaded in drupal will be available in your erdiko site.  Go to the root of your site and run the follow commands (linux & OSX).
 
@@ -73,15 +73,19 @@ FAQ
 
 	It is because the vendor folder should be for your composer libraries.  Since drupal 7 and below are not composer compatible we thought it best to put it somewhere more isolated.  All erdiko mash up libraries that aren't composer based should go in /lib.
 
-2. What about Drupal 8?
+2. I'm using a CDN what do I do?
+
+	It's still a good idea to do the symlink to your files folder from your app, but it's not required.  Make sure files in your native drupal site are being served from the CDN.  When you are theming your content retrieved from drupal check to see if the returned file (image) url is using your CDN.  If not run it through the drupal to get the CDN version of the file.  $drupal->file_create_url($uri)
+
+3. What about Drupal 8?
 
 	When drupal 8 finally gets released we may have to create a new branch of the module that is 8 compatible.  You would install it via, composer require 8.0.*.  Depending on how Drupal 8 matures, you may be able to directly run drupal under any framework without extra glue... only time will tell :-)
 
-3. I found a bug, what do I do?
+4. I found a bug, what do I do?
 
 	Submit an issue, https://github.com/arroyolabs/erdiko-drupal/issues
 
-4. I want to contribute
+5. I want to contribute
 
 	Please fork and submit a pull request or drop us a line.
 
