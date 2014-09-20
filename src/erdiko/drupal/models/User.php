@@ -129,11 +129,6 @@ class User extends \erdiko\drupal\Model
 
                         $this->setUserData($account);
                         $this->setUserId($account->uid);
-
-                        // user saved successfully, now calculate their size secret measurements
-                        $userService = Erdiko::getService('user');
-                        $sizing = $userService->indexUser($account->uid);
-                        // $this->setUserSizing($sizing);
                     }
                 }
             } catch (\Exception $e) {
@@ -149,11 +144,6 @@ class User extends \erdiko\drupal\Model
     	// @todo redo to send back flag and load additional data into model object
     	if($success) {
     		$data['user'] = $account;
-    		$data['sizing'] = $sizing; // @todo replace with $sizing->toArray();
-
-    		$this->loadSizing();
-    		$this->createSession();
-
     	} else {
     		$data['user'] = null;
     		$data['error'] = array();
@@ -162,7 +152,6 @@ class User extends \erdiko\drupal\Model
     		else
     			$data['error']['message'] = $this->getUserErrorMessage($e->getMessage());	
     	}
-    	// error_log("data: ".print_r($data, true));
 
     	return $data;
 	}
